@@ -18,9 +18,24 @@ export const checkUser = () => {
 export const userLogin = (phoneNumber = '', password = '') => {
     return AV.User.logInWithMobilePhone(phoneNumber, password);
 }
-export const getAnswerList = () => {
+export const getAnswerList = (params) => {
     let query = new AV.Query('Answer')
+    query.limit(params.limit)
+    query.skip(params.skip)
     return query.find()
+}
+export const getAnswerListCount = () => {
+    let query = new AV.Query('Answer')
+
+    return query.count()
+}
+export const deleteAnswerList = (idArray) => {
+    let objectArray = []
+    idArray.map(item => {
+        let answer = AV.Object.createWithoutData('Answer',item)
+        objectArray.push(answer)
+    })
+    return AV.Object.destroyAll(objectArray)
 }
 export const getOrderList = () => {
     let query = new AV.Query('Order')
