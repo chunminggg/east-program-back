@@ -37,8 +37,10 @@ export const deleteAnswerList = (idArray) => {
     })
     return AV.Object.destroyAll(objectArray)
 }
-export const getOrderList = () => {
+export const getOrderList = (params) => {
     let query = new AV.Query('Order')
+    query.limit(params.limit)
+    query.skip(params.skip)
     return query.find()
 }
 export const addLuckyNumber = (luckyNumber) => {
